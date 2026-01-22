@@ -1,0 +1,8 @@
+FirstFramework/pageobjects/ConfirmationPage.class
+FirstFramework/AbstractComponents/AbstractComponent.class
+FirstFramework/resources/ExtentReporterNG.class
+FirstFramework/pageobjects/CheckoutPage.class
+FirstFramework/pageobjects/LandingPage.class
+FirstFramework/pageobjects/ProductCatalogue.class
+FirstFramework/pageobjects/CartPage.class
+FirstFramework/pageobjects/OrderPage.class

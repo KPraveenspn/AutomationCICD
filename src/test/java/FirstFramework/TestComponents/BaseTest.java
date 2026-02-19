@@ -1,6 +1,8 @@
 package FirstFramework.TestComponents;
 
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterMethod;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,24 +41,27 @@ public class BaseTest {
 		//property class
 		
 		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream("/Users/praveenkumar/eclipse-workspace/SeleniumFrameworkDesign/src/main/java/FirstFramework/resources/GlobalData.properties");
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"/src/main/java/FirstFramework/resources/GlobalData.properties");
 		prop.load(fis);
+		
+		///Users/praveenkumar/eclipse-workspace/SeleniumFrameworkDesign
 		
 		String browserName = System.getProperty("browser")!=null ? System.getProperty("browser") : prop.getProperty("browser");
 	//	String browserName = prop.getProperty("browser");
 		
 		if(browserName.contains("chrome"))
 		{
-		 // WebDriverManager.chromedriver().setup();   //Not required 	
+		  
 		  
 			ChromeOptions options = new ChromeOptions();
+			WebDriverManager.chromedriver().setup();   //Not required 	
 			if(browserName.contains("headless"))
 			{
-			options.addArguments("headless");
+			options.addArguments("--headless");
 			}
 			
 			driver = new ChromeDriver(options);
-			driver.manage().window().setSize(new Dimension(1440, 900));   //full screen
+			driver.manage().window().setSize(new Dimension(1920,1080));   //full screen
 		
 		} else if (browserName.equalsIgnoreCase("firefox"))
 		{
@@ -105,17 +110,27 @@ public class BaseTest {
 	public LandingPage launchApplication() throws IOException
 	{
 		
-	    driver = initializeDriver();
-	     landingPage = new LandingPage(driver);
-		landingPage.goTo();
-		return landingPage;
+//	    driver = initializeDriver();
+//	     landingPage = new LandingPage(driver);
+//		landingPage.goTo();
+//		return landingPage;
+	
+		driver = initializeDriver();
+	    if (driver != null) {
+	        landingPage = new LandingPage(driver);
+	        landingPage.goTo();
+	        return landingPage;
+	    }
+	    // Handle the case when driver initialization fails
+	    return null;
 		
 	}
 	
+//	@AfterMethod
 	@AfterMethod(alwaysRun=true)
 	public void tearDown()
 	{
-		driver.close();
+		driver.quit();
 	}
 	
 

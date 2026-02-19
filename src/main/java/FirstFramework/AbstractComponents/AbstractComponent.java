@@ -25,8 +25,8 @@ public class AbstractComponent {
 	@FindBy(css = ".btn.btn-custom[routerlink='/dashboard/cart']")
 	WebElement cartHeader;
 	
-	@FindBy(css = ".btn.btn-custom[routerlink='/dashboard/myorders']")
-	WebElement orderHeader;
+//	@FindBy(css = ".btn.btn-custom[routerlink='/dashboard/myorders']")
+//	WebElement orderHeader;
 
 	public void waitForElementToAppear(By findBy)
 	{
@@ -37,7 +37,7 @@ public class AbstractComponent {
 	
 	public void waitForWebElementToAppear(WebElement findBy)
 	{
-	WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+	WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(3));
 	wait.until(ExpectedConditions.visibilityOf(findBy));
 	
 	}
@@ -51,16 +51,29 @@ public class AbstractComponent {
 	
 	public OrderPage goToOrdersPage()
 	{
-		orderHeader.click();
-		OrderPage orderPage = new OrderPage(driver);
-		return orderPage;
+		 By ordersLocator = By.cssSelector("button[routerlink*='myorders']");
+		    
+		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		    WebElement ordersBtn = wait.until(
+		            ExpectedConditions.elementToBeClickable(ordersLocator)
+		    );
+
+		    ordersBtn.click();
+		    return new OrderPage(driver);
+		
+//		waitForElementToAppear(By.cssSelector(".btn.btn-custom[routerlink='/dashboard/myorders']"));
+//		
+//		orderHeader.click();
+//		OrderPage orderPage = new OrderPage(driver);
+//		return orderPage;
+		
 	}
 	
 	public void waitForElementToDisappear(WebElement ele) throws InterruptedException
 	{
-		Thread.sleep(1000);
-//		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(2));
-//		wait.until(ExpectedConditions.invisibilityOf(ele));
+		Thread.sleep(2000);
+//	WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(2));
+//	wait.until(ExpectedConditions.invisibilityOf(ele));
 	}
 	
 	

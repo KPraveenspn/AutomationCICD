@@ -1,5 +1,6 @@
 package FirstFramework.pageobjects;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -7,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import FirstFramework.AbstractComponents.AbstractComponent;
 
@@ -31,7 +34,7 @@ public class ProductCatalogue extends AbstractComponent{
 	WebElement spinner;
 	
 	By productsBy = By.cssSelector(".mb-3");
-	By addToCart = By.cssSelector(".card-body button:last-of-type");
+	By addToCart = By.cssSelector(".card-body button:last-of-type");    //div[@class='card-body']/button[2]
 	By toastMsg = By.cssSelector("#toast-container");
 	
 	public List<WebElement> getProductList()
@@ -48,13 +51,17 @@ public class ProductCatalogue extends AbstractComponent{
 		return prod;
 	}
 	
-	public void addProductToCart(String productName) throws InterruptedException
+	@FindBy(css = "button[routerlink*='myorders']")
+	WebElement ordersButton;
+
+	public void waitForDashboardToLoad()
 	{
-		WebElement prod = getProductByName(productName);
-		prod.findElement(addToCart).click();
-		waitForElementToAppear(toastMsg);
-		waitForElementToDisappear(spinner);
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+	    wait.until(ExpectedConditions.visibilityOf(ordersButton));
 	}
+
 	
+	
+
 
 }

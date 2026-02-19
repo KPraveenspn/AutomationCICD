@@ -50,6 +50,14 @@ public class ProductCatalogue extends AbstractComponent{
 		
 		return prod;
 	}
+
+	public void addProductToCart(String productName) throws InterruptedException
+	{
+		WebElement prod = getProductByName(productName);
+		prod.findElement(addToCart).click();
+		waitForElementToAppear(toastMsg);
+		waitForElementToDisappear(spinner);
+	}
 	
 	@FindBy(css = "button[routerlink*='myorders']")
 	WebElement ordersButton;

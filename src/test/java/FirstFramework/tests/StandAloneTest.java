@@ -21,13 +21,13 @@ public class StandAloneTest {
 		// TODO Auto-generated method stub
 
 		//WebDriverManager.chromedriver().setup();
-		String productName = "ZARA COAT 3";
-		WebDriver driver = new ChromeDriver();
+		String productName = "ZARA COAT 3";        //String Variable
+		WebDriver driver = new ChromeDriver();      // Initializing the WebDriver
 		driver.manage().window().maximize();
 		
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));   //Implicit wait
 		
-		driver.get("https://rahulshettyacademy.com/client/#/auth/login");
+		driver.get("https://rahulshettyacademy.com/client/#/auth/login");   // Navigating to WebSite
 		LandingPage landingpage = new LandingPage(driver);
 		
 		driver.findElement(By.id("userEmail")).sendKeys("praveen.framework@gmail.com");
